@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import (
     Customer,
     EventType,
@@ -7,7 +8,9 @@ from .models import (
     ServiceArea,
     Venue,
     Quote,
-) 
+    QuoteItem,
+)
+
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
@@ -71,11 +74,11 @@ class EventAdmin(admin.ModelAdmin):
     )
 
     search_fields = (
-    "event_name",
-    "venue_name",
-    "city",
-    "venue_address",
-    "venue__name",
+        "event_name",
+        "venue_name",
+        "city",
+        "venue_address",
+        "venue__name",
     )
 
     date_hierarchy = "event_date"
@@ -83,7 +86,6 @@ class EventAdmin(admin.ModelAdmin):
 
 @admin.register(CateringRequirement)
 class CateringRequirementAdmin(admin.ModelAdmin):
-
     list_display = (
         "event",
         "service_style",
@@ -111,9 +113,10 @@ class CateringRequirementAdmin(admin.ModelAdmin):
         "dietary_requirements",
         "special_requests",
     )
+
+
 @admin.register(ServiceArea)
 class ServiceAreaAdmin(admin.ModelAdmin):
-
     list_display = (
         "name",
         "region",
@@ -132,9 +135,10 @@ class ServiceAreaAdmin(admin.ModelAdmin):
         "region",
         "description",
     )
+
+
 @admin.register(Venue)
 class VenueAdmin(admin.ModelAdmin):
-
     list_display = (
         "name",
         "city",
@@ -153,9 +157,16 @@ class VenueAdmin(admin.ModelAdmin):
         "address",
         "city",
     )
+
+
+class QuoteItemInline(admin.TabularInline):
+    model = QuoteItem
+    extra = 1
+    readonly_fields = ("amount",)
+
+
 @admin.register(Quote)
 class QuoteAdmin(admin.ModelAdmin):
-
     list_display = (
         "quote_number",
         "event",
@@ -169,21 +180,48 @@ class QuoteAdmin(admin.ModelAdmin):
         "tax",
         "total",
         "status",
-        )
+    )
 
     list_filter = (
         "status",
         "quote_date",
         "valid_until",
-        )
+    )
 
     search_fields = (
         "quote_number",
         "event__event_name",
         "event__customer__first_name",
         "event__customer__last_name",
-        )
+    )
 
     readonly_fields = (
         "quote_date",
-        )
+    )
+
+    inlines = [QuoteItemInline]
+
+
+@admin.register(QuoteItem)
+class QuoteItemAdmin(admin.ModelAdmin):
+    list_display = (
+        "quote",
+        "description",
+        "quantity",
+        "unit_price",
+        "amount",
+    )
+
+    search_fields = (
+        "description",
+        "quote__quote_number",
+        "quote__event__event_name",
+    )
+
+    list_filter = (
+        "created_at",
+    )
+
+    readonly_fields = (
+        "amount",
+    )

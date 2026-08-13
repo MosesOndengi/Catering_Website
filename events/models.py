@@ -440,4 +440,48 @@ class Quote(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"{self.quote_number} - {self.event}"    
+        return f"{self.quote_number} - {self.event}"
+class QuoteItem(models.Model):
+
+    quote = models.ForeignKey(
+        Quote,
+        on_delete=models.CASCADE,
+        related_name="items"
+    )
+
+    description = models.CharField(
+        max_length=255
+    )
+
+    quantity = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=1
+    )
+
+    unit_price = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0
+    )
+
+    amount = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0
+    )
+
+    notes = models.TextField(
+        blank=True
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def save(self, *args, **kwargs):
+        self.amount = self.quantity * self.unit_price
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.description} - {self.quote.quote_number}"    
