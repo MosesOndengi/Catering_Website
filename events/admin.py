@@ -6,7 +6,8 @@ from .models import (
     CateringRequirement,
     ServiceArea,
     Venue,
-)   
+    Quote,
+) 
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
@@ -152,3 +153,37 @@ class VenueAdmin(admin.ModelAdmin):
         "address",
         "city",
     )
+@admin.register(Quote)
+class QuoteAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "quote_number",
+        "event",
+        "quote_date",
+        "valid_until",
+        "subtotal",
+        "travel_charge",
+        "setup_charge",
+        "cleanup_charge",
+        "discount",
+        "tax",
+        "total",
+        "status",
+        )
+
+    list_filter = (
+        "status",
+        "quote_date",
+        "valid_until",
+        )
+
+    search_fields = (
+        "quote_number",
+        "event__event_name",
+        "event__customer__first_name",
+        "event__customer__last_name",
+        )
+
+    readonly_fields = (
+        "quote_date",
+        )
