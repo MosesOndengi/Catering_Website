@@ -8,7 +8,7 @@ class Customer(models.Model):
     email = models.EmailField(
         blank=True,
         null=True
-    )
+        )
 
     phone = models.CharField(max_length=30)
 
@@ -16,31 +16,31 @@ class Customer(models.Model):
         max_length=30,
         blank=True,
         null=True
-    )
+        )
 
     address = models.TextField(
         blank=True,
         null=True
-    )
+        )
 
     city = models.CharField(
         max_length=100,
         blank=True,
         null=True
-    )
+        )
 
     additional_information = models.TextField(
         blank=True,
         null=True
-    )
+        )
 
     created_at = models.DateTimeField(
         auto_now_add=True
-    )
+        )
 
     updated_at = models.DateTimeField(
         auto_now=True
-    )
+        )
 
     class Meta:
         ordering = ["first_name", "last_name"]
@@ -54,11 +54,11 @@ class EventType(models.Model):
 
     description = models.TextField(
         blank=True
-    )
+        )
 
     is_active = models.BooleanField(
         default=True
-    )
+        )
 
     class Meta:
         verbose_name = "Event Type"
@@ -77,7 +77,7 @@ class Event(models.Model):
         ("confirmed", "Confirmed"),
         ("completed", "Completed"),
         ("cancelled", "Cancelled"),
-    ]
+        ]
 
     customer = models.ForeignKey(
         Customer,
@@ -85,13 +85,13 @@ class Event(models.Model):
         related_name="events",
         blank=True,
         null=True
-    )
+        )
 
     event_type = models.ForeignKey(
         EventType,
         on_delete=models.PROTECT,
         related_name="events"
-    )
+        )
 
     venue = models.ForeignKey(
         "Venue",
@@ -99,54 +99,54 @@ class Event(models.Model):
         related_name="events",
         blank=True,
         null=True
-    )
+        )
 
     event_name = models.CharField(
         max_length=200,
         blank=True
-    )
+        )
 
     event_date = models.DateField()
 
     start_time = models.TimeField(
         blank=True,
         null=True
-    )
+        )
 
     end_time = models.TimeField(
         blank=True,
         null=True
-    )
+        )
 
     venue_name = models.CharField(
         max_length=200
-    )
+        )
 
     venue_address = models.TextField()
 
     city = models.CharField(
         max_length=100
-    )
+        )
 
     number_of_guests = models.PositiveIntegerField()
 
     event_description = models.TextField(
         blank=True
-    )
+        )
 
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
         default="inquiry"
-    )
+        )
 
     created_at = models.DateTimeField(
         auto_now_add=True
-    )
+        )
 
     updated_at = models.DateTimeField(
         auto_now=True
-    )
+        )
 
     class Meta:
         ordering = ["event_date"]
@@ -167,7 +167,7 @@ class CateringRequirement(models.Model):
         ("family_style", "Family Style"),
         ("packed_meals", "Packed Meals"),
         ("custom", "Custom"),
-    ]
+        ]
 
     BUDGET_RANGE_CHOICES = [
         ("under_500", "Under 500"),
@@ -177,64 +177,64 @@ class CateringRequirement(models.Model):
         ("5000_10000", "5,000 - 10,000"),
         ("over_10000", "Over 10,000"),
         ("not_specified", "Not Specified"),
-    ]
+        ]
 
     event = models.OneToOneField(
         Event,
         on_delete=models.CASCADE,
         related_name="catering_requirement"
-    )
+        )
 
     service_style = models.CharField(
         max_length=30,
         choices=SERVICE_STYLE_CHOICES
-    )
+        )
 
     number_of_servers = models.PositiveIntegerField(
         default=0
-    )
+        )
 
     setup_required = models.BooleanField(
         default=False
-    )
+        )
 
     cleanup_required = models.BooleanField(
         default=False
-    )
+        )
 
     tableware_required = models.BooleanField(
         default=False
-    )
+        )
 
     equipment_required = models.BooleanField(
         default=False
-    )
+        )
 
     dietary_requirements = models.TextField(
         blank=True
-    )
+        )
 
     special_requests = models.TextField(
         blank=True
-    )
+        )
 
     budget_range = models.CharField(
         max_length=30,
         choices=BUDGET_RANGE_CHOICES,
         default="not_specified"
-    )
+        )
 
     additional_notes = models.TextField(
         blank=True
-    )
+        )
 
     created_at = models.DateTimeField(
         auto_now_add=True
-    )
+        )
 
     updated_at = models.DateTimeField(
         auto_now=True
-    )
+        )
 
     class Meta:
         verbose_name = "Catering Requirement"
@@ -246,40 +246,40 @@ class ServiceArea(models.Model):
 
     name = models.CharField(
         max_length=100
-    )
+        )
 
     region = models.CharField(
         max_length=100,
         blank=True
-    )
+        )
 
     description = models.TextField(
         blank=True
-    )
+        )
 
     base_travel_fee = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0
-    )
+        )
 
     setup_fee = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0
-    )
+        )
 
     is_active = models.BooleanField(
         default=True
-    )
+        )
 
     created_at = models.DateTimeField(
         auto_now_add=True
-    )
+        )
 
     updated_at = models.DateTimeField(
         auto_now=True
-    )
+        )
 
     class Meta:
         ordering = ["name"]
@@ -292,52 +292,52 @@ class Venue(models.Model):
         ServiceArea,
         on_delete=models.PROTECT,
         related_name="venues"
-    )
+        )
 
     name = models.CharField(
         max_length=200
-    )
+        )
 
     address = models.TextField()
 
     city = models.CharField(
         max_length=100
-    )
+        )
 
     postal_code = models.CharField(
         max_length=20,
         blank=True
-    )
+        )
 
     latitude = models.DecimalField(
         max_digits=10,
         decimal_places=7,
         blank=True,
         null=True
-    )
+        )
 
     longitude = models.DecimalField(
         max_digits=10,
         decimal_places=7,
         blank=True,
         null=True
-    )
+        )
 
     additional_information = models.TextField(
         blank=True
-    )
+        )
 
     is_active = models.BooleanField(
         default=True
-    )
+        )
 
     created_at = models.DateTimeField(
         auto_now_add=True
-    )
+        )
 
     updated_at = models.DateTimeField(
         auto_now=True
-    )
+        )
 
     class Meta:
         ordering = ["name"]
@@ -353,88 +353,88 @@ class Quote(models.Model):
         ("rejected", "Rejected"),
         ("expired", "Expired"),
         ("cancelled", "Cancelled"),
-    ]
+        ]
 
     event = models.OneToOneField(
         Event,
         on_delete=models.CASCADE,
         related_name="quote"
-    )
+        )
 
     quote_number = models.CharField(
         max_length=30,
         unique=True,
         blank=True
-    )
+        )
 
     quote_date = models.DateField(
         auto_now_add=True
-    )
+        )
 
     valid_until = models.DateField(
         blank=True,
         null=True
-    )
+        )
 
     subtotal = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         default=0
-    )
+        )
 
     travel_charge = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         default=0
-    )
+        )
 
     setup_charge = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         default=0
-    )
+        )
 
     cleanup_charge = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         default=0
-    )
+        )
 
     discount = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         default=0
-    )
+        )
 
     tax = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         default=0
-    )
+        )
 
     total = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         default=0
-    )
+        )
 
     status = models.CharField(
         max_length=20,
         choices=STATUS_CHOICES,
         default="draft"
-    )
+        )
 
     notes = models.TextField(
         blank=True
-    )
+        )
 
     created_at = models.DateTimeField(
         auto_now_add=True
-    )
+        )
 
     updated_at = models.DateTimeField(
         auto_now=True
-    )
+        )
 
     class Meta:
         ordering = ["-created_at"]
@@ -447,37 +447,37 @@ class QuoteItem(models.Model):
         Quote,
         on_delete=models.CASCADE,
         related_name="items"
-    )
+        )
 
     description = models.CharField(
         max_length=255
-    )
+        )
 
     quantity = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=1
-    )
+        )
 
     unit_price = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         default=0
-    )
+        )
 
     amount = models.DecimalField(
         max_digits=12,
         decimal_places=2,
         default=0
-    )
+        )
 
     notes = models.TextField(
         blank=True
-    )
+        )
 
     created_at = models.DateTimeField(
         auto_now_add=True
-    )
+        )
 
     def save(self, *args, **kwargs):
         self.amount = self.quantity * self.unit_price
@@ -527,3 +527,91 @@ class ServicePricing(models.Model):
 
     def __str__(self):
         return f"{self.get_service_style_display()} - {self.price_per_guest} per guest"    
+class QuoteRequest(models.Model):
+
+    STATUS_CHOICES = [
+        ("new", "New"),
+        ("reviewing", "Under Review"),
+        ("quoted", "Quote Prepared"),
+        ("accepted", "Accepted"),
+        ("declined", "Declined"),
+        ("cancelled", "Cancelled"),
+        ]
+
+    customer = models.ForeignKey(
+        Customer,
+        on_delete=models.CASCADE,
+        related_name="quote_requests"
+        )
+
+    event_type = models.ForeignKey(
+        EventType,
+        on_delete=models.PROTECT,
+        related_name="quote_requests"
+        )
+
+    event_date = models.DateField()
+
+    guest_count = models.PositiveIntegerField()
+
+    service_style = models.CharField(
+        max_length=30,
+        choices=ServicePricing.SERVICE_STYLE_CHOICES
+        )
+
+    service_area = models.ForeignKey(
+        ServiceArea,
+        on_delete=models.PROTECT,
+        related_name="quote_requests"
+        )
+
+    setup_required = models.BooleanField(
+        default=True
+        )
+
+    cleanup_required = models.BooleanField(
+        default=True
+        )
+
+    equipment_required = models.BooleanField(
+        default=False
+        )
+
+    tableware_required = models.BooleanField(
+        default=False
+        )
+
+    dietary_requirements = models.TextField(
+        blank=True
+        )
+
+    special_requests = models.TextField(
+        blank=True
+        )
+
+    estimated_total = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        default=0
+        )
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="new"
+        )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+        )
+
+    updated_at = models.DateTimeField(
+        auto_now=True
+        )
+
+    def __str__(self):
+        return (
+            f"{self.customer} - "
+            f"{self.event_type} - "
+            f"{self.event_date}"
+        )

@@ -10,7 +10,8 @@ from .models import (
     Quote,
     QuoteItem,
     ServicePricing,
-)
+    QuoteRequest,
+    )
 
 
 @admin.register(Customer)
@@ -244,4 +245,44 @@ class ServicePricingAdmin(admin.ModelAdmin):
     search_fields = (
         "service_style",
         "description",
+        )
+@admin.register(QuoteRequest)
+class QuoteRequestAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "customer",
+        "event_type",
+        "event_date",
+        "guest_count",
+        "service_style",
+        "service_area",
+        "estimated_total",
+        "status",
+        "created_at",
+        )
+
+    list_filter = (
+        "status",
+        "event_type",
+        "service_style",
+        "service_area",
+        "event_date",
+        )
+
+    search_fields = (
+        "customer__first_name",
+        "customer__last_name",
+        "customer__email",
+        "customer__phone",
+        "dietary_requirements",
+        "special_requests",
+        )
+
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+        )
+
+    ordering = (
+        "-created_at",
         )

@@ -223,6 +223,104 @@
             <div class="form-grid">
 
                 <div class="form-group">
+                    <label for="first_name">
+                        First Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="first_name"
+                        id="first_name"
+                        placeholder="Your first name"
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="last_name">
+                        Last Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="last_name"
+                        id="last_name"
+                        placeholder="Your last name"
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="you@example.com"
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        name="phone"
+                        id="phone"
+                        placeholder="Your phone number"
+                    >
+                </div>
+
+
+                <div class="form-group">
+                    <label for="event_type">
+                        Event Type
+                    </label>
+
+                    <select
+                        name="event_type"
+                        id="event_type"
+                        required
+                    >
+
+                        <option value="">
+                            Select event type
+                        </option>
+
+                        {% for event_type in event_types %}
+
+                            <option value="{{ event_type.id }}">
+                                {{ event_type.name }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="event_date">
+                        Event Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="event_date"
+                        id="event_date"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
 
                     <label for="service_style">
                         Catering Service
@@ -368,22 +466,115 @@
                     </div>
 
                 </div>
+                <div class="form-group">
+
+                    <label>
+                        Equipment Required?
+                    </label>
+
+                    <div class="radio-group">
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="equipment_required"
+                                value="yes"
+                            >
+                            Yes
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="equipment_required"
+                                value="no"
+                                checked
+                            >
+                            No
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Tableware Required?
+                    </label>
+
+                    <div class="radio-group">
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="tableware_required"
+                                value="yes"
+                            >
+                            Yes
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="tableware_required"
+                                value="no"
+                                checked
+                            >
+                            No
+                        </label>
+
+                    </div>
+
+                </div>
 
 
                 <div class="form-group full">
 
-                    <button
-                        type="submit"
-                        class="button"
-                    >
-                        Calculate My Estimate
-                    </button>
+                    <label for="dietary_requirements">
+                        Dietary Requirements
+                    </label>
+
+                    <textarea
+                        name="dietary_requirements"
+                        id="dietary_requirements"
+                        rows="3"
+                        placeholder="Vegetarian, vegan, allergies, halal, etc."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label for="special_requests">
+                        Special Requests
+                    </label>
+
+                    <textarea
+                        name="special_requests"
+                        id="special_requests"
+                        rows="4"
+                        placeholder="Tell us anything else we should know about your event."
+                    ></textarea>
+
+                </div>
+
+                <div class="form-group full">
+
+                <button
+                    type="submit"
+                    name="action"
+                    value="calculate"
+                    class="button"
+                >
+                    Calculate My Estimate
+                </button>
 
                 </div>
 
             </div>
-
-        </form>
 
 
         {% if estimate %}
@@ -458,20 +649,25 @@
                 </p>
 
 
-                <a
-                    href="#"
+                <button
+                    type="submit"
+                    name="action"
+                    value="request_quote"
                     class="quote-button"
                 >
                     Request a Formal Quote
-                </a>
+                </button>
 
             </div>
 
         {% endif %}
 
+        </form>
+
     </div>
 
 </div>
+
 
 </body>
 </html>
