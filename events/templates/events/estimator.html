@@ -166,8 +166,16 @@
             text-decoration: none;
             border-radius: 6px;
         }
+        .success-message {
+            background: #e8f7ee;
+            color: #176b3a;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            border: 1px solid #b7e4c7;
+        }
 
-        @media (max-width: 700px) {
+        @m  edia (max-width: 700px) {
 
             .form-grid {
                 grid-template-columns: 1fr;
@@ -208,6 +216,17 @@
     <div class="estimator-card">
 
         <h2>Tell Us About Your Event</h2>
+        {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="success-message">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+        {% endif %}
 
         {% if error %}
             <div class="error">
