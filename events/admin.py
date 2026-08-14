@@ -9,6 +9,7 @@ from .models import (
     Venue,
     Quote,
     QuoteItem,
+    ServicePricing,
 )
 
 
@@ -225,3 +226,22 @@ class QuoteItemAdmin(admin.ModelAdmin):
     readonly_fields = (
         "amount",
     )
+@admin.register(ServicePricing)
+class ServicePricingAdmin(admin.ModelAdmin):
+
+    list_display = (
+        "service_style",
+        "price_per_guest",
+        "minimum_guests",
+        "active",
+        )
+
+    list_filter = (
+        "service_style",
+        "active",
+        )
+
+    search_fields = (
+        "service_style",
+        "description",
+        )
